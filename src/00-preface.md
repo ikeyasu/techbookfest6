@@ -76,7 +76,7 @@ Deep Learningはあらゆる分野でState-of-the-artを叩き出してきた最
 //blankline
 //noindent
 
-@<icon>{yousei} 「僕は妖精だから、この生まれたときにはもう何でもわかっていたけどねー。人間は大変だね。」
+@<icon>{yousei} 「僕は妖精だから、生まれたときにはもう何でもわかっていたけどねー。人間は大変だね。」
 
 //blankline
 //noindent
