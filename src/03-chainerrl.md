@@ -2,23 +2,39 @@
 
 @<icon>{yousei}「ここでは、ChainerRLの説明をするよ」
 
+　
+ 
 @<icon>{cheiko}「CVは分かったけど、RLって何？東京駅で売ってるやつ？」
+
+　
 
 @<icon>{yousei}「それは、ワッフルケーキだよね。RLは、Reinforcement Learningの略で、強化学習だよ。」
 
+　
+
 ※ 本書は、東京駅で売っているカラフルなワッフルケーキ詰め合わせとは本当に何の関係もありません。
+
+　
 
 @<icon>{cheiko}「強化学習って？」
 
+　
+
 @<icon>{yousei}「一般的に、機械学習って、教師あり学習・教師なし学習に分かれるよね。」
+
+　
 
 @<icon>{cheiko}「ふむふむ」
 
-@<icon>{yousei}「そうじゃないのが強化学習。それぞれこんな感じの特徴がある。」
+　
+
+@<icon>{yousei}「そうじゃないのが強化学習。それぞれこんな感じの特徴があるんだよ。」
+
+　
 
 * 教師あり学習
   * 入出力の関係を学習する（正解データが与えられる）
-  * 一般的にイメージする機械学習（特にDeep learning）はこれが多い
+  * 一般的にイメージする機械学習（特にDeep Learning）はこれが多い
 * 教師なし学習
   * 正解データが与えられない
   * クラスタリング、異常検知など
@@ -26,7 +42,11 @@
   * 試行錯誤を通じて価値を最大化する
   * 入力は乱数、正解データは与えられない（環境と報酬が与えられる）
 
+　
+
 @<icon>{cheiko}「そうじゃないのがって、ずいぶんとおざなりね。どういう時に使うの？」
+
+　
 
 @<icon>{yousei}「そうだね、具体例から入った方が分かりやすいかな。強化学習で近年話題になったものに、Atariのゲームを人工知能で解いたっというのがあるんだ。DQNっていうんだけど、これにはゲームのルールを全く与えずに、繰り返しゲームをプレイするだけで、ブロック崩しとかがプレイできるようになったんだ」
 
@@ -34,19 +54,35 @@
 
 https://youtu.be/TmPfTpjtdgg
 
+　
+
 @<icon>{cheiko}「DQNって、、、」
+
+　
 
 @<icon>{yousei}「そのDQNじゃないよ！Deep Q Networkの略だね。ゲームのルールを教えないけど、それがプレイできるようになるのってすごくない？」
 
+　
+
 @<icon>{cheiko}「すごいけど、画像認識だって、認識のルール教えてないわよ。同じじゃない？」
+
+　
 
 @<icon>{yousei}「そうだね。でも画像認識は、正解があるよね。強化学習は、例えば、ゲームの画面と得点だけで、最適な行動を学習できる。もしこれを教師あり学習でやろうと思ったら、正解行動のデータが必要だけど、ブロック崩しみたいなゲームで正解行動のデータを作るとか難しいよね」
 
+　
+
 @<icon>{cheiko}「あー、なるほど。確かに、それができたらすごい気がしてきた。」
+
+　
 
 @<icon>{yousei}「長々と話しちゃったけど、そんな感じのが強化学習。で、その強化学習を簡単にできるのが、ChainerRLなんだ」
 
+　
+
 @<icon>{cheiko}「やっと登場ね。」
+
+　
 
 ## 強化学習の予備知識
 
@@ -57,13 +93,12 @@ ChainerRLの説明の前に、もう一つ、説明しなければならない�
 
 ![強化学習の要素](src/images/chainerrl_fig2.png)
 
-エージェントは、行動を決めるもので、ChainerRLではその内部で用意されています。
-一方、環境は、シミュレーション環境等です。例えば、ブロック崩しの場合は、そのエミュレータが環境になります。
+エージェントは、行動を決めるもので、ChainerRLではその内部に用意されています。
+一方、環境はシミュレーション環境等です。例えば、ブロック崩しの場合は、そのシミュレータが環境になります。
 この環境とエージェントの間のI/Fが統一されていれば、エージェントのプログラムを変えずに、環境を入れ換えることができるはずです。
-
 それを実現しているのがOpen AI Gymです。
 
-手持ちの環境に、Open AI Gymを入れて見ましょう。
+それでは、手持ちの環境にOpen AI Gymを入れてみましょう。
 
 ```
 $ pip install gym
@@ -102,10 +137,11 @@ $ pip install chainerrl
 
 さて、では、これをChainerRLをつかって学習してみましょう。
 ここでは、なるべくChainerRLに頼って、コードを書かずに書いてみます。
-まず、ざっとコードを掲載します。本コードは、ChainerRLのQuickStartを参考にしています。
+まず、ざっとコードを掲載します。本コードは、ChainerRLのQuickStart@<fn>{fn01}を参考にしています。
+//footnote[fn01][https://github.com/chainer/chainerrl/tree/master/examples/quickstart]
 
-QuickStart
-https://github.com/chainer/chainerrl/tree/master/examples/quickstart
+
+
 
 ```
 import chainer
@@ -162,9 +198,9 @@ logging.basicConfig(level=logging.INFO, stream=sys.stdout, format='')
 # result/ に結果が保存される
 chainerrl.experiments.train_agent_with_evaluation(
     agent, env,
-    steps=20000,           # 20000ステップ学習する
-    eval_n_runs=10,       ## 評価の度に10回実行する
-    eval_interval=1000,   # 1000ステップ毎に評価する
+    steps=20000,          # 20,000ステップ学習する
+    eval_n_runs=10,       # 評価の度に10回実行する
+    eval_interval=1000,   # 1,000ステップ毎に評価する
     outdir='result')      # resultに出力
 ```
 
@@ -178,7 +214,7 @@ env = gym.make('CartPole-v0')
 ```
 
 最初の辺りは、前述の通り、Open AI Gymの環境を作成しています。
-ここでは、学習の早い、倒立振子（CartPole）を作成しています。
+ここでは、学習の早い倒立振子（CartPole）を作成しています。
 
 ![倒立振子の画面](src/images/chainerrl_fig4.png)
 
@@ -216,10 +252,11 @@ q_func = chainerrl.q_functions.FCStateQFunctionWithDiscreteAction(
 そのため、上記のテーブルは膨大な数になり、計算困難となります。
 
 そこで、これをニューラルネットワークで近似しています。
+
 ここで、`FCStateQFunctionWithDiscreteAction`という長い名前の意味を見てみると、以下の通りです。
 
-* `FCState`は、Fullly Connected State。つまり、StateをFully Connected Layerのニューラルネットワークで近似します。
-* `DiscreteAction`は、離散的な行動という意味です。倒立振子は、右に移動、左に移動と離散的な行動（つまり連続的な値を取らない）を取ります。
+* `FCState`は、Fully Connected State。StateをFully Connected Layerのニューラルネットワークで近似するということです。
+* `DiscreteAction`は、離散的な行動値という意味です。今回の倒立振子では、右に移動、左に移動と離散的な行動値を取るのであって連続的な値ではないということです。
 
 ```
 optimizer = chainer.optimizers.Adam(eps=1e-2)
@@ -267,27 +304,26 @@ agent = chainerrl.agents.DoubleDQN(
 ```
 chainerrl.experiments.train_agent_with_evaluation(
     agent, env,
-    steps=20000,           # 20000ステップ学習する
-    eval_n_runs=10,       ## 評価の度に10回実行する
-    eval_interval=1000,   # 1000ステップ毎に評価する
+    steps=20000,          # 20,000ステップ学習する
+    eval_n_runs=10,       # 評価の度に10回実行する
+    eval_interval=1000,   # 1,000ステップ毎に評価する
     outdir='result')      # resultに出力
 ```
 
 最後に、`train_agent_with_evaluation`を使って学習と評価をします。
 
-では、このコードを実行してみましょう。概ね10分ほどで終わると思います
+では、このコードを実行してみましょう。概ね10分ほどで終わると思います。
 すると、result以下に、scores.txtが作成されます。
 
 ```
-steps	episodes	elapsed	mean	median	stdev	max	min	average_q	average_loss	n_updates
-1013	52	3.7664895057678223	9.358	9.0	0.7529740632184879	11.0	8.0	7.567612714092402	0.2999092669597402	513
-2006	128	11.854687690734863	24.78	25.0	4.3484961581764505	35.0	16.0	12.073888504675862	0.6073129824974002	1506
-3038	142	27.868073225021362	68.164	67.0	10.273470318483893	113.0	46.0	15.69104218384753	0.4823906248083028	2538
-4
+steps episodes elapsed            mean   median	stdev	           max   min  ..
+1013  52	   3.7664895057678223 9.358  9.0    0.7529740632184879 11.0  8.0  ..
+2006  128	   11.854687690734863 24.78  25.0   4.3484961581764505 35.0  16.0 ..
+3038  142	   27.868073225021362 68.164 67.0   10.273470318483893 113.0 46.0 ..
 ...
 ```
 
-mean、meadian、stdev、max、minは、評価の時に得られた報酬の平均・中央値・標準偏差・最大値・最小値を示しています。学習が進むにつれて、meanが増えているのが分かると思います。
+mean、median、stdev、max、minは、評価の時に得られた報酬の平均・中央値・標準偏差・最大値・最小値を示しています。学習が進むにつれて、meanが増えているのが分かると思います。
 
 では、学習結果を確認してみましょう。最後の`train_agent_with_evaluation`の行を以下の通り置き換えて実行してください。
 
@@ -300,7 +336,7 @@ eval_stats = chainerrl.experiments.eval_performance(
     n_runs=1000)
 ```
 
-20000ステップでは学習が少ないので、もう少しという所ですが、倒立振子がそれなりに安定して居るのが確認できたかと思います。
+20,000ステップでは学習が少ないので、もう少しという所ですが、倒立振子がそれなりに安定しているのが確認できたかと思います。
 
 ## この先勉強するために
 
