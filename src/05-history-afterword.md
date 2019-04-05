@@ -120,7 +120,7 @@ Chainerエバンジェリストとしてコミュニティ活動やイベント�
   - ウルシステムズ株式会社で「先端技術をビジネスに」をキーワードに研究開発やPoCをしています。画像処理、AR、深層学習、強化学習、ブロックチェーンがメイン。
      社内ではScrumMaster向けの活動やarxiv論文を読む活動も開催中。日々、Chainerを使ってkaggleやSIGNATEで技術を磨いています。
 
-- Yasuki Ikeuchi(@ikeyasu) 担当:3章
+- 池内康樹(@ikeyasu) 担当:3章
   - 株主会社ACCESSのCo-CTO。普段はIoT屋をする傍ら、Chainerで遊んでます。
 
 - 舛岡英人(@hidetomasuoka) 担当:5章、あとがき
